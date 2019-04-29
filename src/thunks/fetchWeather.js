@@ -1,5 +1,5 @@
 import { isLoading, hasErrored } from "../actions";
-import { weatherFetchDataSuccess } from "../src/actions";
+import { weatherFetchDataSuccess } from "../actions";
 
 export const fetchWeather = url => {
   return async dispatch => {
