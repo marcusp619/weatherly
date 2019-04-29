@@ -1,9 +1,13 @@
-import React from "react";
-import { connect } from "react-redux";
-import { fetchWeather } from "../../thunks/fetchWeather";
-import "./App.css";
+import React from 'react';
+import { connect } from 'react-redux';
+import { fetchWeather } from '../../thunks/fetchWeather';
+import './App.css';
+require('dotenv').config();
 
-function App() {
+function App(props) {
+  const { fetchWeather } = props;
+  console.log(process.env);
+
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(displayLocationInfo);
   }
@@ -14,6 +18,10 @@ function App() {
 
     console.log(`longitude: ${lng} | latitude: ${lat}`);
   }
+
+  // useEffect(() => {
+  //   fetchWeather()
+  // }, [input])
 
   return <div className="App">app</div>;
 }
