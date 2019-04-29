@@ -1,5 +1,5 @@
-import { isLoading, hasErrored } from "../actions";
-import { weatherFetchDataSuccess } from "../actions";
+import { isLoading, hasErrored } from '../actions';
+import { weatherFetchDataSuccess } from '../actions';
 
 export const fetchWeather = url => {
   return async dispatch => {
@@ -10,9 +10,7 @@ export const fetchWeather = url => {
         throw Error(response.statusText);
       }
       dispatch(isLoading(false));
-      const data = await response.json();
-      const weather = await dispatch(data);
-      console.log(weather);
+      const weather = await response.json();
       dispatch(weatherFetchDataSuccess(weather));
     } catch (error) {
       dispatch(hasErrored(error.message));

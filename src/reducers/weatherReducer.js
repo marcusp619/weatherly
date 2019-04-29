@@ -16,10 +16,10 @@ export const hasErrored = (state = '', action) => {
   }
 };
 
-export const weather = (state = [], action) => {
+export const weather = (state = {}, action) => {
   switch (action.type) {
     case 'WEATHER_FETCH_DATA_SUCCESS':
-      return action.staff;
+      return action.weather;
     default:
       return state;
   }

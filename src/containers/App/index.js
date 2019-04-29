@@ -1,39 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchWeather } from '../../thunks/fetchWeather';
+import { getLocation } from '../../actions';
 import './App.css';
-require('dotenv').config();
 
 function App(props) {
-  const { fetchWeather } = props;
-  console.log(process.env);
+  const { fetchWeather, getLocation } = props;
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(displayLocationInfo);
-  }
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(locationInfo);
+    }
 
-  function displayLocationInfo(position) {
-    const lng = position.coords.longitude;
-    const lat = position.coords.latitude;
-
-    console.log(`longitude: ${lng} | latitude: ${lat}`);
-  }
-
-  // useEffect(() => {
-  //   fetchWeather()
-  // }, [input])
+    function locationInfo(position) {
+      const lng = position.coords.longitude;
+      const lat = position.coords.latitude;
+      getLocation({ lat, lng });
+      fetchWeather(`${process.env.REACT_APP_URL}${lat},${lng}`);
+    }
+  }, []);
 
   return <div className="App">app</div>;
 }
 
 const mapStateToProps = state => ({
   weather: state.weather,
+  location: state.location,
   isLoading: state.isLoading,
   error: state.error
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchWeather: url => dispatch(fetchWeather(url))
+  fetchWeather: url => dispatch(fetchWeather(url)),
+  getLocation: location => dispatch(getLocation(location))
 });
 
 export default connect(
