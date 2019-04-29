@@ -1,6 +1,5 @@
-import { combineReducers } from "redux";
-import { isLoading, hasErrored, weather } from "./weatherReducer";
-
+import { combineReducers } from 'redux';
+import { isLoading, hasErrored, weather } from './weatherReducer';
 const rootReducer = combineReducers({
   weather,
   isLoading,
